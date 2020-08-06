@@ -1,18 +1,20 @@
 import React from 'react';
-import {ThemeProvider} from "styled-components";
-import {Navigation} from 'components';
+import { ThemeProvider } from "styled-components";
+import { Navigation, LoadingIndicator, Wrapper } from 'components';
+import { useTranslation } from 'react-i18next';
 import {
     BrowserRouter as Router,
     Switch,
     Route
 } from "react-router-dom";
 import theme from "utils/theme";
-import Wrapper from "./components/Wrapper";
 import GlobalStyles from "./index.css.js";
 
 function App() {
+    const { i18n } = useTranslation();
+
     return (
-        <ThemeProvider theme={theme}>
+        <>
             <GlobalStyles/>
             <Router>
                 <Navigation items={
@@ -22,8 +24,8 @@ function App() {
                     ]
                 } RightElement={
                     <div>
-                        <button>pl</button>
-                        <button>en</button>
+                        <button onClick={() => i18n.changeLanguage('pl')}>pl</button>
+                        <button onClick={() => i18n.changeLanguage('en')}>en</button>
                     </div>
                 }/>
                 <Wrapper>
@@ -37,8 +39,18 @@ function App() {
                     </Switch>
                 </Wrapper>
             </Router>
-        </ThemeProvider>
+        </>
     );
 }
 
-export default App;
+const RootApp = () => {
+    return (
+        <ThemeProvider theme={theme}>
+            <React.Suspense fallback={<LoadingIndicator/>}>
+                <App/>
+            </React.Suspense>
+        </ThemeProvider>
+    )
+}
+
+export default RootApp;
