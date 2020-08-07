@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from "styled-components";
-import { Navigation, LoadingIndicator, Wrapper } from 'components';
+import { Navigation, LoadingIndicator, Wrapper, Button } from 'components';
 import { useTranslation } from 'react-i18next';
 import {
     BrowserRouter as Router,
@@ -24,8 +24,8 @@ function App() {
                     ]
                 } RightElement={
                     <div>
-                        <button onClick={() => i18n.changeLanguage('pl')}>pl</button>
-                        <button onClick={() => i18n.changeLanguage('en')}>en</button>
+                        <Button onClick={() => i18n.changeLanguage('pl')}>pl</Button>
+                        <Button onClick={() => i18n.changeLanguage('en')}>en</Button>
                     </div>
                 }/>
                 <Wrapper>
